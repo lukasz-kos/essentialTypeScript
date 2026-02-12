@@ -4,9 +4,10 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "sourceMap": true,
-    "declaration": true
+    "declaration": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true
     // "noEmitOnError": true,
     // "noImplicitAny": true,
-    // "strictNullChecks": true
   }
 }
