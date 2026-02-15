@@ -1,11 +1,6 @@
-function checkNumber(val: any): asserts val is number {
-  if (typeof val != "number") {
-    throw new Error("Not a number");
-  }
-}
-function calculateTax(amount: number | null): number {
-  checkNumber(amount);
-  return amount * 1.2;
-}
-let taxAmount: number = calculateTax(100);
-console.log(`Tax value: ${taxAmount}`);
+let hat = { name: "Hat", price: 100 };
+let gloves = { name: "Gloves", price: 75 };
+
+let products = [hat, gloves];
+
+products.forEach((prod) => console.log(`${prod.name}: ${prod.price}`));
