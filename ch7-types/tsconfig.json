@@ -4,8 +4,8 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "sourceMap": true,
-    "declaration": true,
-    "strictNullChecks": true
+    "declaration": true
+    // "strictNullChecks": true
     // "noImplicitReturns": true
     // "noEmitOnError": true
     // "noImplicitAny": true,
