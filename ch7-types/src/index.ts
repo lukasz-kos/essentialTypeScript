@@ -1,23 +1,33 @@
 import { City, Person, Product, Employee } from "./dataTypes.js";
 
-let products = [new Product("Running Shoes", 100), new Product("Hat", 25)];
+type resultType<T extends boolean> = T extends true ? string : number;
 
-type shapeType = { name: string };
+class Collection<T> {
+  private items: T[];
 
-class Collection<T extends shapeType> {
-  constructor(private items: T[] = []) {}
-  add(...newItems: T[]): void {
-    this.items.push(...newItems);
+  constructor(...initialItems: T[]) {
+    this.items = initialItems || [];
   }
-  get(name: string): T {
-    return this.items.find((item) => item.name === name);
-  }
-  get count(): number {
-    return this.items.length;
+
+  total<P extends keyof T, U extends boolean>(
+    propName: P,
+    format: U,
+  ): resultType<U> {
+    let totalValue = this.items.reduce(
+      (t, item) => (t += Number(item[propName])),
+      0,
+    );
+    return format ? `$${totalValue.toFixed()}` : (totalValue as any);
   }
 }
 
-let productCollection: Collection<Product> = new Collection(products);
-console.log(`There are ${productCollection.count} products`);
-let p = productCollection.get("Hat");
-console.log(`Product: ${p.name}, ${p.price}`);
+let data = new Collection<Product>(
+  new Product("Kayak", 275),
+  new Product("Lifejacket", 48.95),
+);
+
+let firstVal: string = data.total("price", true);
+console.log(`Formatted value: ${firstVal}`);
+
+let secondVal: number = data.total("price", false);
+console.log(`Unformatted value: ${secondVal}`);
