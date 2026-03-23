@@ -1,33 +1,10 @@
-import { City, Person, Product, Employee } from "./dataTypes.js";
+function sendEmail(to: string, subject: string, body: string) { ... }
 
-type resultType<T extends boolean> = T extends true ? string : number;
+// instead of manually typed parameters...
+type EmailArgs = Parameters<typeof sendEmail>;
+// [to: string, subject: string, body: string]
 
-class Collection<T> {
-  private items: T[];
-
-  constructor(...initialItems: T[]) {
-    this.items = initialItems || [];
-  }
-
-  total<P extends keyof T, U extends boolean>(
-    propName: P,
-    format: U,
-  ): resultType<U> {
-    let totalValue = this.items.reduce(
-      (t, item) => (t += Number(item[propName])),
-      0,
-    );
-    return format ? `$${totalValue.toFixed()}` : (totalValue as any);
-  }
+// you just use a type with spread syntax on one array
+function queueEmail(...args: EmailArgs) {
+  queue.push(() => sendEmail(...args));
 }
-
-let data = new Collection<Product>(
-  new Product("Kayak", 275),
-  new Product("Lifejacket", 48.95),
-);
-
-let firstVal: string = data.total("price", true);
-console.log(`Formatted value: ${firstVal}`);
-
-let secondVal: number = data.total("price", false);
-console.log(`Unformatted value: ${secondVal}`);
